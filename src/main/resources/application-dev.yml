@@ -5,10 +5,10 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: 010498
+    password: root
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
 
 token:

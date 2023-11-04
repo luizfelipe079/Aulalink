@@ -17,11 +17,13 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class Professor extends Usuario {
 
-    @OneToMany(mappedBy="professor")
+    @OneToMany(mappedBy = "professor")
     @JsonIgnore
     private List<Tags> tag;
     @OneToMany(mappedBy = "professor")
     @JsonIgnore
     private List<Marcacao> marcacao;
+    @OneToMany(mappedBy = "professor")
+    private List<HorariosDisponiveis> horariosDisponiveis;
 
 }
