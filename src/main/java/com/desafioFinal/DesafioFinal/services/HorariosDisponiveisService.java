@@ -1,7 +1,6 @@
 package com.desafioFinal.DesafioFinal.services;
 
-import com.desafioFinal.DesafioFinal.dtos.HorariosDisponiveisRequest;
-import com.desafioFinal.DesafioFinal.dtos.HorariosDisponiveisResponse;
+import com.desafioFinal.DesafioFinal.dtos.*;
 import com.desafioFinal.DesafioFinal.exceptions.ResourceNotFoundException;
 import com.desafioFinal.DesafioFinal.models.HorariosDisponiveis;
 import com.desafioFinal.DesafioFinal.models.Professor;
@@ -12,6 +11,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,21 @@ public class HorariosDisponiveisService {
 
         return mapper.map(repository.save(horarioDisponivel), HorariosDisponiveisResponse.class);
 
+    }
+
+    public List<HorariosDisponiveisResponse> criarMultiplosHorariosDisponiveis (ListHorariosDisponiveisRequest request) {
+        List<HorariosDisponiveisResponse> horariosDisponiveisResponses = new ArrayList<>();
+
+        for (Date dataDisponivel : request.getListdataEHoraInicio()){
+            Professor professor = repositoryProfessor.findById(request.getIdProfessor()).orElseThrow(() -> idNotFound(request.getIdProfessor()));
+
+            HorariosDisponiveis save = repository.save(new HorariosDisponiveis(null, dataDisponivel, professor, false));
+            ProfessorResponse professorSalvoResponse = mapper.map(save.getProfessor(), ProfessorResponse.class);
+
+            horariosDisponiveisResponses.add(new HorariosDisponiveisResponse(save.getId(), save.getData(), professorSalvoResponse, save.isHorarioPreenchido()));
+        }
+
+        return horariosDisponiveisResponses;
     }
 
     public HorariosDisponiveisResponse atualizarHorarioDisponivel(Long id, HorariosDisponiveisRequest request) {
