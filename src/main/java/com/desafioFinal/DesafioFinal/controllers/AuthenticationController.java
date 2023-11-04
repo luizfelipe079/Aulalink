@@ -5,6 +5,7 @@ import com.desafioFinal.DesafioFinal.dtos.SignInRequest;
 import com.desafioFinal.DesafioFinal.dtos.SignUpRequest;
 import com.desafioFinal.DesafioFinal.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signin")
+//    @PreAuthorize("ADMIN")
     public JwtAuthenticationResponse signin(@RequestBody SignInRequest request) {
         return authenticationService.signin(request);
     }
-
-    // Criar signup aluno e professor, sem autenticação e criar um singup para ADMINS, onde precisará passar o token de autenticação
-    // Adicionar a ROLE ao payload do token para que seja possível verificar se é permitida determinada ação para o usuário autenticado
 
     // Inserção de tags apenas pelo admin
 }

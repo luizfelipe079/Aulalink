@@ -30,7 +30,7 @@ public class SeedDataConfig implements CommandLineRunner {
                     .sobrenome("admin")
                     .email("admin@admin.com")
                     .senha(passwordEncoder.encode("password"))
-                    .role(Role.ROLE_ADMIN)
+                    .role(Role.ADMIN)
                     .build();
 
             userService.save(admin);

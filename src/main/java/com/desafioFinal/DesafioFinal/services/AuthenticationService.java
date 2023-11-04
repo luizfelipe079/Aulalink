@@ -30,7 +30,7 @@ public class AuthenticationService {
                 .sobrenome(request.getSobrenome())
                 .email(request.getEmail())
                 .senha(passwordEncoder.encode(request.getSenha()))
-                .role(Role.ROLE_USER)
+                .role(Role.USER)
                 .build();
 
         user = userService.save(user);
