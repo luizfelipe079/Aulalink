@@ -2,6 +2,8 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.HorariosDisponiveisRequest;
 import com.desafioFinal.DesafioFinal.dtos.HorariosDisponiveisResponse;
+import com.desafioFinal.DesafioFinal.dtos.ListHorariosDisponiveisRequest;
+import com.desafioFinal.DesafioFinal.dtos.MultiplosHorariosDisponivesResponse;
 import com.desafioFinal.DesafioFinal.services.HorariosDisponiveisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -25,6 +27,14 @@ public class HorariosDisponiveisController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
+    }
+
+    @PostMapping("multiplos")
+    public ResponseEntity<?> criarMultiplosHorariosDisponiveis(@RequestBody ListHorariosDisponiveisRequest request) {
+
+        service.criarMultiplosHorariosDisponiveis(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
