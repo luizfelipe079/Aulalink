@@ -1,6 +1,7 @@
 package com.desafioFinal.DesafioFinal.services;
 
 import com.desafioFinal.DesafioFinal.dtos.*;
+import com.desafioFinal.DesafioFinal.exceptions.AutenticacaoException;
 import com.desafioFinal.DesafioFinal.models.Aluno;
 import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.models.Usuario;
@@ -41,12 +42,16 @@ public class AuthenticationService {
 
 
     public JwtAuthenticationResponse signin(SignInRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha()));
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
-        var jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha()));
+            var user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+            var jwt = jwtService.generateToken(user);
+            return JwtAuthenticationResponse.builder().token(jwt).build();
+        } catch (Exception e) {
+            throw new AutenticacaoException();
+        }
     }
 
 

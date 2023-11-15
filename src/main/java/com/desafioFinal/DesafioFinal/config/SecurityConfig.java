@@ -53,7 +53,12 @@ public class SecurityConfig {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "/swagger-ui.html",
+            "api/v1/signup",
+            "api/v1/signin",
+            "api/v1/signup-aluno",
+            "api/v1/signup-professor"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -63,7 +68,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers(HttpMethod.POST, "api/v1/signup", "api/v1/signin", "api/v1/signup-aluno", "api/v1/signup-professor").permitAll()
                         .requestMatchers(HttpMethod.GET, "api/v1/test/**").permitAll()
                         .requestMatchers( "swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
