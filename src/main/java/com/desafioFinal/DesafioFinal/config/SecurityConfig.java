@@ -57,7 +57,7 @@ public class SecurityConfig {
             "api/v1/signup",
             "api/v1/signin",
             "api/v1/signup-aluno",
-            "api/v1/signup-professor"
+            "api/v1/signup-professor",
     };
 
     @Bean
@@ -68,6 +68,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers(HttpMethod.GET, "api/v1/{email}").permitAll()
                         .requestMatchers(HttpMethod.GET, "api/v1/test/**").permitAll()
                         .requestMatchers( "swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
