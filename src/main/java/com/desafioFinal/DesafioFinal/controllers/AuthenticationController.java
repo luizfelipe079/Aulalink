@@ -2,7 +2,10 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.*;
 import com.desafioFinal.DesafioFinal.services.AuthenticationService;
+import com.desafioFinal.DesafioFinal.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final UsuarioService usuarioService;
 
     @PostMapping("/signup")
     public JwtAuthenticationResponse signup(@RequestBody SignUpRequest request) {
@@ -30,6 +34,12 @@ public class AuthenticationController {
     @PostMapping("/signup-professor")
     public JwtAuthenticationResponse signupProfessor(@RequestBody ProfessorRequest request) {
         return authenticationService.signupProfessor(request);
+    }
+
+    @GetMapping(path = "/{email}")
+    public ResponseEntity<UsuarioResponse> buscarUsuarioPorEmail(@PathVariable String email) {
+        UsuarioResponse user = usuarioService.buscarUsuarioPorEmail(email);
+        return ResponseEntity.ok().body(user);
     }
 
     // Criar signup aluno e professor, sem autenticação e criar um singup para ADMINS, onde precisará passar o token de autenticação
