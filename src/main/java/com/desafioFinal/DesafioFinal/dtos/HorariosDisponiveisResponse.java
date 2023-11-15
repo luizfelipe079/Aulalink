@@ -14,7 +14,7 @@ public class HorariosDisponiveisResponse {
 
     private Long id;
     private Date data;
-    private Professor professor;
+    private ProfessorResponse professor;
     private boolean horarioPreenchido;
 
 }

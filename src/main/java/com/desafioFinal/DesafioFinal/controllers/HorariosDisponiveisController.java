@@ -30,11 +30,11 @@ public class HorariosDisponiveisController {
     }
 
     @PostMapping("multiplos")
-    public ResponseEntity<?> criarMultiplosHorariosDisponiveis(@RequestBody ListHorariosDisponiveisRequest request) {
+    public ResponseEntity<List<HorariosDisponiveisResponse>> criarMultiplosHorariosDisponiveis(@RequestBody ListHorariosDisponiveisRequest request) {
 
-        service.criarMultiplosHorariosDisponiveis(request);
+        List<HorariosDisponiveisResponse> list = service.criarMultiplosHorariosDisponiveis(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(list);
     }
 
     @PutMapping
