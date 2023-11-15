@@ -9,6 +9,7 @@ import com.desafioFinal.DesafioFinal.models.enums.Role;
 import com.desafioFinal.DesafioFinal.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,8 @@ public class AuthenticationService {
 
     private final UsuarioRepository userRepository;
     private final UsuarioService userService;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
@@ -74,7 +76,7 @@ public class AuthenticationService {
         aluno.setEducacao(request.getEducacao());
 
         user = userService.save(aluno);
-        var jwt = jwtService.generateToken(aluno);
+        var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
@@ -97,7 +99,7 @@ public class AuthenticationService {
         professor.setFormacao(request.getFormacao());
 
         user = userService.save(professor);
-        var jwt = jwtService.generateToken(professor);
+        var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 }

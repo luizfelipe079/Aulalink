@@ -31,15 +31,10 @@ public class Usuario implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static UsuarioBuilder builder() {
-        return new UsuarioBuilder();
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
 
     @Override
     public String getPassword() {
