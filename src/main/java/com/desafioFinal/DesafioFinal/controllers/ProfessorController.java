@@ -2,13 +2,17 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.ProfessorRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorResponse;
+import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.services.ProfessorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -60,4 +64,22 @@ public class ProfessorController {
 
     }
 
+//    @GetMapping("/form")
+//    public String form(Model model) {
+//        model.addAttribute("professor", new Professor());
+//        return "form";
+//    }
+//
+//    @PostMapping("/upload")
+//    public String handleFileUpload(@ModelAttribute ProfessorRequest professor, @RequestParam("file") MultipartFile file) {
+//        try {
+//            professor.setImagem(file.getBytes());
+//            professorService.criarProfessor(professor);
+//            return "redirect:/form?success";
+//        } catch (IOException e) {
+//            return "redirect:/form?error";
+//        }
+//    }
 }
+
+

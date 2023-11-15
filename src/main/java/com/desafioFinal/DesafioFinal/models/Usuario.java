@@ -2,10 +2,7 @@ package com.desafioFinal.DesafioFinal.models;
 
 import com.desafioFinal.DesafioFinal.models.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +25,7 @@ public class Usuario implements UserDetails {
     private String sobrenome;
     private String senha;
     private String email;
+    private short idade;
     private String cpf;
     private Role role;
     private LocalDateTime createdAt;
@@ -67,4 +65,6 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

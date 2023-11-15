@@ -1,10 +1,7 @@
 package com.desafioFinal.DesafioFinal.models;
 
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -13,6 +10,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Aluno extends Usuario {
 
-    private String dificuldade;
+    private String educacao;
 
 }

@@ -1,5 +1,7 @@
 package com.desafioFinal.DesafioFinal.services;
 
+import com.desafioFinal.DesafioFinal.models.Aluno;
+import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.models.Usuario;
 import com.desafioFinal.DesafioFinal.repositories.AlunoRepository;
 import com.desafioFinal.DesafioFinal.repositories.UsuarioRepository;
