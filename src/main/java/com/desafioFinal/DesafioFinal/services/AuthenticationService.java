@@ -1,12 +1,13 @@
 package com.desafioFinal.DesafioFinal.services;
 
-import com.desafioFinal.DesafioFinal.dtos.JwtAuthenticationResponse;
-import com.desafioFinal.DesafioFinal.dtos.SignInRequest;
-import com.desafioFinal.DesafioFinal.dtos.SignUpRequest;
+import com.desafioFinal.DesafioFinal.dtos.*;
+import com.desafioFinal.DesafioFinal.models.Aluno;
+import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.models.Usuario;
 import com.desafioFinal.DesafioFinal.models.enums.Role;
 import com.desafioFinal.DesafioFinal.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,4 +49,50 @@ public class AuthenticationService {
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
+
+    public JwtAuthenticationResponse signupAluno(AlunoRequest request) {
+
+        var user = Aluno
+                .builder()
+                .nome(request.getNome())
+                .sobrenome(request.getSobrenome())
+                .email(request.getEmail())
+                .senha(passwordEncoder.encode(request.getSenha()))
+                .idade(request.getIdade())
+                .cpf(request.getCpf())
+                .role(Role.ROLE_ALUNO)
+                .build();
+
+        Aluno aluno = new Aluno();
+
+        BeanUtils.copyProperties(user, aluno);
+        aluno.setEducacao(request.getEducacao());
+
+        user = userService.save(aluno);
+        var jwt = jwtService.generateToken(aluno);
+        return JwtAuthenticationResponse.builder().token(jwt).build();
+    }
+
+    public JwtAuthenticationResponse signupProfessor(ProfessorRequest request) {
+
+        var user = Professor
+                .builder()
+                .nome(request.getNome())
+                .sobrenome(request.getSobrenome())
+                .email(request.getEmail())
+                .senha(passwordEncoder.encode(request.getSenha()))
+                .idade(request.getIdade())
+                .cpf(request.getCpf())
+                .role(Role.ROLE_PROFESSOR)
+                .build();
+
+        Professor professor = new Professor();
+
+        BeanUtils.copyProperties(user, professor);
+        professor.setFormacao(request.getFormacao());
+
+        user = userService.save(professor);
+        var jwt = jwtService.generateToken(professor);
+        return JwtAuthenticationResponse.builder().token(jwt).build();
+    }
 }

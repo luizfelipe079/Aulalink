@@ -1,6 +1,7 @@
 package com.desafioFinal.DesafioFinal.dtos;
 
 import com.desafioFinal.DesafioFinal.models.enums.Role;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,13 @@ import lombok.NoArgsConstructor;
 public class ProfessorRequest {
 
     private String nome;
-    private String senha;
+    private String sobrenome;
     private String email;
+    private String senha;
+    private short idade;
     private String cpf;
-    private Role role;
+    private String formacao;
+//    @Lob
+//    private byte[] imagem;
 
 }

@@ -11,5 +11,5 @@ public class AlunoResponse {
 
     private String nome;
     private String email;
-    private String dificuldade;
+    private String educacao;
 }

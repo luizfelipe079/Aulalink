@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 public class AlunoRequest {
 
     private String nome;
-    private String senha;
+    private String sobrenome;
     private String email;
+    private String senha;
+    private short idade;
     private String cpf;
-    private String dificuldade;
-    private Role role;
+    private String educacao;
 
 
 }
