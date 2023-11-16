@@ -15,6 +15,5 @@ public class TagsResponse {
     private Long id;
     private String descricao;
     private Nivel nivel;
-    @JsonIgnore
-    private Professor professor;
+
 }

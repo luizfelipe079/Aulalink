@@ -10,7 +10,6 @@ import com.desafioFinal.DesafioFinal.repositories.TagsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,15 +29,10 @@ public class TagsService {
     public TagsResponse criarTag(TagsRequest request) {
 
         Tags tag = new Tags();
-
         BeanUtils.copyProperties(request, tag);
-
         tag = tagsRepository.save(tag);
 
-
         return mapper.map(tag, TagsResponse.class);
-
-
     }
 
     public TagsResponse vincularTagAoProfessor(Long id_tag, Long id_professor) {
@@ -46,6 +40,7 @@ public class TagsService {
         Tags tag = tagsRepository.findById(id_tag).orElseThrow(() -> idNotFound(id_tag));
         Professor prof = professorRepository.findById(id_professor).orElseThrow(() -> idNotFound(id_professor));
         tag.setProfessor(prof);
+
         return mapper.map(tagsRepository.save(tag), TagsResponse.class);
 
     }
