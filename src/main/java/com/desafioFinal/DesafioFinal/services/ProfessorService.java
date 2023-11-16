@@ -19,6 +19,8 @@ public class ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private TagsService tagsService;
 
     @Autowired
     private ModelMapper mapper;
@@ -56,6 +58,49 @@ public class ProfessorService {
         return list;
     }
 
+    public List<ProfessorResponse> listarTodosProfessoresPorTags(String tag) {
+
+        if (tag == null || tag.isEmpty()) {
+            throw new RuntimeException("A lista de tags não pode estar vazia");
+        }
+        List<Professor> lista = professorRepository.findAll();
+
+        List<ProfessorResponse> professoresComTags = lista.stream()
+                .filter(Professor -> containsTag(Professor, tag))
+                .map(Professor -> mapper.map(Professor, ProfessorResponse.class)) // Supondo que você tenha uma classe ProfessorResponse
+                .collect(Collectors.toList());
+
+        if (professoresComTags.isEmpty()) {
+            throw new ResourceNotFoundException("Não existe professor com estas tags");
+        }
+
+        return professoresComTags;
+    }
+
+
+//Falta implementar este metodo com o front
+//    public List<ProfessorResponse> listarTodosProfessoresPorTags(String[] tags) {
+//
+//            if (Arrays.stream(tags).toList().isEmpty()) {
+//                throw new RuntimeException("A lista de tags não pode estar vazia");
+//            }
+//
+//            List<Professor> lista = professorRepository.findAll();
+//
+//            List<ProfessorResponse> professoresComTags = lista.stream()
+//                    .filter(professor -> containsAnyTag(professor, tags))
+//                    .map(ProfessorResponse::new) // Supondo que você tenha uma classe ProfessorResponse
+//                    .collect(Collectors.toList());
+//
+//            if (professoresComTags.isEmpty()) {
+//                throw new RuntimeException("Não existe professor com estas tags");
+//            }
+//
+//            return professoresComTags;
+//
+//    }
+
+
     public void excluirProfessor(Long id) {
 
         Professor professor = professorRepository.findById(id).orElseThrow(() -> idNotFound(id));
@@ -63,8 +108,18 @@ public class ProfessorService {
 
     }
 
+    private boolean containsTag(Professor professor, String tag) {
+        return professor.getTag().stream().anyMatch(tags -> tags.getDescricao().equals(tag));
+    }
+
+//    private boolean containsAnyTag(Professor professor, String[] tags) {
+//        List<List<Tags>> professorTags = Arrays.asList(professor.getTag()); // Substitua pelo método adequado de obter as tags do professor
+//        return professorTags.containsAll(Arrays.asList(tags));
+//    }
+
     public RuntimeException idNotFound(Long id) {
         throw new ResourceNotFoundException("Id not found " + id);
     }
+
 
 }

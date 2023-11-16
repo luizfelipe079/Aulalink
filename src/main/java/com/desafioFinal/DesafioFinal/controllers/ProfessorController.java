@@ -2,17 +2,13 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.ProfessorRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorResponse;
-import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.services.ProfessorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -23,7 +19,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorResponse> criarAluno(@RequestBody @Valid ProfessorRequest request) {
+    public ResponseEntity<ProfessorResponse> criarProfessor(@RequestBody @Valid ProfessorRequest request) {
 
         ProfessorResponse response = professorService.criarProfessor(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -32,7 +28,7 @@ public class ProfessorController {
 
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProfessorResponse> atualizarAluno(@PathVariable Long id, @RequestBody ProfessorRequest request) {
+    public ResponseEntity<ProfessorResponse> atualizarProfessor(@PathVariable Long id, @RequestBody ProfessorRequest request) {
 
         ProfessorResponse response = professorService.atualizarProfessor(id, request);
         return ResponseEntity.ok().body(response);
@@ -40,7 +36,7 @@ public class ProfessorController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProfessorResponse> buscarAlunoPorId(@PathVariable Long id) {
+    public ResponseEntity<ProfessorResponse> buscarProfessorPorId(@PathVariable Long id) {
 
         ProfessorResponse response = professorService.buscarProfessorPorId(id);
         return ResponseEntity.ok().body(response);
@@ -51,6 +47,24 @@ public class ProfessorController {
     public ResponseEntity<List<ProfessorResponse>> listarTodasTags() {
 
         List<ProfessorResponse> list = professorService.listarTodosProfessores();
+
+        return ResponseEntity.ok().body(list);
+
+    }
+
+//    @GetMapping(path = "/{tags}")
+//    public ResponseEntity<List<ProfessorResponse>> listarTodosProfessoresPorTags(@PathVariable String[] Tags) {
+//
+//        List<ProfessorResponse> list = professorService.listarTodosProfessoresPorTags(Tags);
+//
+//        return ResponseEntity.ok().body(list);
+//
+//    }
+
+    @GetMapping(path = "/portags/{tag}")
+    public ResponseEntity<List<ProfessorResponse>> listarTodosProfessoresPorTags(@PathVariable String tag) {
+
+        List<ProfessorResponse> list = professorService.listarTodosProfessoresPorTags(tag);
 
         return ResponseEntity.ok().body(list);
 

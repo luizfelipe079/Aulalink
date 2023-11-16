@@ -4,7 +4,6 @@ import com.desafioFinal.DesafioFinal.dtos.TagsRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
 import com.desafioFinal.DesafioFinal.services.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,7 +51,7 @@ public class TagsController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_PROFESSOR)")
     public ResponseEntity<List<TagsResponse>> listarTodasTags() {
 
         List<TagsResponse> list = tagsService.listarTodasTags();

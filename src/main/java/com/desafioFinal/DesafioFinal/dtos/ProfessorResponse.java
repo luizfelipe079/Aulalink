@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.dtos;
 
+import com.desafioFinal.DesafioFinal.models.Professor;
 import com.desafioFinal.DesafioFinal.models.Tags;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -17,4 +18,5 @@ public class ProfessorResponse {
     private String nome;
     private String email;
     private List<Tags> tag;
+
 }

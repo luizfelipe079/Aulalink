@@ -1,7 +1,7 @@
 package com.desafioFinal.DesafioFinal.models;
 
 import com.desafioFinal.DesafioFinal.models.enums.Nivel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class Tags {
     private Long id;
     private String descricao;
     private Nivel nivel;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Professor professor;
 }
