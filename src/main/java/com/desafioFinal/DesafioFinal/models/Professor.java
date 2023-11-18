@@ -1,11 +1,9 @@
 package com.desafioFinal.DesafioFinal.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,8 +21,12 @@ public class Professor extends Usuario {
     private String formacao;
     @Lob
     private byte[] imagem;
-    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "professor_tags",
+            joinColumns = @JoinColumn(name = "professor_id"),
+            inverseJoinColumns = @JoinColumn(name = "tags_id"))
+    @JsonIgnore
     private List<Tags> tag;
     @OneToMany(mappedBy = "professor")
     @JsonIgnore(value = true)

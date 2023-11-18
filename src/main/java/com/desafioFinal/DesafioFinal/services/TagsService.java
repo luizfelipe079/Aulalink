@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,9 @@ public class TagsService {
 
         Tags tag = tagsRepository.findById(id_tag).orElseThrow(() -> idNotFound(id_tag));
         Professor prof = professorRepository.findById(id_professor).orElseThrow(() -> idNotFound(id_professor));
-        tag.setProfessor(prof);
+        tag.getProfessor().add(prof);
+        prof.getTag().add(tag);
+        professorRepository.save(prof);
 
         return mapper.map(tagsRepository.save(tag), TagsResponse.class);
 
