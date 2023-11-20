@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.controllers;
 
+import com.desafioFinal.DesafioFinal.dtos.TagVinculaRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
 import com.desafioFinal.DesafioFinal.services.TagsService;
@@ -7,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/tags")
 public class TagsController {
@@ -27,9 +30,9 @@ public class TagsController {
     }
 
     @PostMapping("/vincular")
-    public ResponseEntity<TagsResponse> vincularTagAoProfessor(Long id_tag, Long id_professor) {
+    public ResponseEntity<TagsResponse> vincularTagAoProfessor(@RequestBody TagVinculaRequest request) {
 
-        TagsResponse response = tagsService.vincularTagAoProfessor(id_tag, id_professor);
+        TagsResponse response = tagsService.vincularTagAoProfessor(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }

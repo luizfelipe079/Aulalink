@@ -68,9 +68,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers(HttpMethod.GET, "api/v1/{email}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "professor/portags/{tag}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "api/v1/test/**").permitAll()
                         .requestMatchers( "swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
