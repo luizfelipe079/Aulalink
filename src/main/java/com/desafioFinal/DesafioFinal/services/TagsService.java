@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.services;
 
+import com.desafioFinal.DesafioFinal.dtos.TagVinculaRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
 import com.desafioFinal.DesafioFinal.exceptions.ResourceNotFoundException;
@@ -30,16 +31,15 @@ public class TagsService {
     public TagsResponse criarTag(TagsRequest request) {
 
         Tags tag = new Tags();
-        BeanUtils.copyProperties(request, tag);
-        tag = tagsRepository.save(tag);
+        tag = mapper.map(request, Tags.class);
 
-        return mapper.map(tag, TagsResponse.class);
+        return mapper.map(tagsRepository.save(tag), TagsResponse.class);
     }
 
-    public TagsResponse vincularTagAoProfessor(Long id_tag, Long id_professor) {
+    public TagsResponse vincularTagAoProfessor(TagVinculaRequest request) {
 
-        Tags tag = tagsRepository.findById(id_tag).orElseThrow(() -> idNotFound(id_tag));
-        Professor prof = professorRepository.findById(id_professor).orElseThrow(() -> idNotFound(id_professor));
+        Tags tag = tagsRepository.findById(request.getId_tag()).orElseThrow(() -> idNotFound(request.getId_tag()));
+        Professor prof = professorRepository.findById(request.getId_professor()).orElseThrow(() -> idNotFound(request.getId_professor()));
         tag.getProfessor().add(prof);
         prof.getTag().add(tag);
         professorRepository.save(prof);

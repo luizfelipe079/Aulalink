@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioResponse {
+public class TagVinculaRequest {
 
-    private Long id;
-    private String nome;
-    private String email;
-    private short idade;
+    private Long id_tag;
+    private Long id_professor;
 
 }
