@@ -71,6 +71,15 @@ public class ProfessorController {
 
     }
 
+    @GetMapping(path = "/proftags/{professor}")
+    public ResponseEntity<ProfessorResponse> listarTodasTagsDoProfessor(@PathVariable String professor) {
+
+        ProfessorResponse response = professorService.listarTodasTagsDoProfessor(professor);
+
+        return ResponseEntity.ok().body(response);
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> excluirTagPorId(@PathVariable Long id) {
 
