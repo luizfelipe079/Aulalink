@@ -2,8 +2,10 @@ package com.desafioFinal.DesafioFinal.services;
 
 import com.desafioFinal.DesafioFinal.dtos.ProfessorRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorResponse;
+import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
 import com.desafioFinal.DesafioFinal.exceptions.ResourceNotFoundException;
 import com.desafioFinal.DesafioFinal.models.Professor;
+import com.desafioFinal.DesafioFinal.models.Tags;
 import com.desafioFinal.DesafioFinal.repositories.ProfessorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,6 +60,16 @@ public class ProfessorService {
                 .collect(Collectors.toList());
         return list;
     }
+
+   public ProfessorResponse listarTodasTagsDoProfessor(String nomeProfessor){
+
+        Optional<Professor> professor = professorRepository.findByNome(nomeProfessor);
+
+        ProfessorResponse prof = mapper.map(professor.get(), ProfessorResponse.class);
+
+        return prof;
+
+   }
 
     public List<ProfessorResponse> listarTodosProfessoresPorTags(String tag) {
 
