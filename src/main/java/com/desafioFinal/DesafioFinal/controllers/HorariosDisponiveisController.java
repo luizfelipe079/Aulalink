@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/horario-disponivel")
 public class HorariosDisponiveisController {
@@ -29,7 +30,7 @@ public class HorariosDisponiveisController {
 
     }
 
-    @PostMapping("multiplos")
+    @PostMapping("/multiplos")
     public ResponseEntity<List<HorariosDisponiveisResponse>> criarMultiplosHorariosDisponiveis(@RequestBody ListHorariosDisponiveisRequest request) {
 
         List<HorariosDisponiveisResponse> list = service.criarMultiplosHorariosDisponiveis(request);
