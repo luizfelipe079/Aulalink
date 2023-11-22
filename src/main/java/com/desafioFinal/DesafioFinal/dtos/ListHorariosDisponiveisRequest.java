@@ -13,5 +13,5 @@ import java.util.List;
 public class ListHorariosDisponiveisRequest {
 
     private Long idProfessor;
-    private List<Date> ListdataEHoraInicio;
+    private List<Date> listdataEHoraInicio;
 }
