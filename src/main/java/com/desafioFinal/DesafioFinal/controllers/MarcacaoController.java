@@ -35,9 +35,9 @@ public class MarcacaoController {
     }
 
     @PostMapping("/vincular")
-    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessor(Long id_marcacao, Long id_professor) {
+    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessorEAluno(Long id_marcacao, Long id_professor, Long id_aluno) {
 
-        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessor(id_marcacao, id_professor);
+        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessorEAluno(id_marcacao, id_professor, id_aluno);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -53,6 +53,24 @@ public class MarcacaoController {
     public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoes() {
 
         List<MarcacaoResponse> list = marcacaoService.listarTodasMarcacoes();
+
+        return ResponseEntity.ok().body(list);
+
+    }
+
+    @GetMapping("/professor/{id_professor}")
+    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorProfessor(@PathVariable Long id_professor) {
+
+        List<MarcacaoResponse> list = marcacaoService.listarTodasMarcacoesPorProfessor(id_professor);
+
+        return ResponseEntity.ok().body(list);
+
+    }
+
+    @GetMapping("/aluno/{id_aluno}")
+    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorAluno(@PathVariable Long id_aluno) {
+
+        List<MarcacaoResponse> list = marcacaoService.listarTodasMarcacoesPorAluno(id_aluno);
 
         return ResponseEntity.ok().body(list);
 

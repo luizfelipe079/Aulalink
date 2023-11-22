@@ -21,5 +21,7 @@ public class Marcacao {
     private Date dataTermino;
     @ManyToOne
     private Professor professor;
+    @ManyToOne
+    private Aluno aluno;
 
 }

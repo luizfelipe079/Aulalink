@@ -38,7 +38,7 @@ public class HorariosDisponiveisController {
         return ResponseEntity.status(HttpStatus.CREATED).body(list);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<HorariosDisponiveisResponse> atualizarHorarioDisponivel(@PathVariable Long id, @RequestBody HorariosDisponiveisRequest request) {
 
         HorariosDisponiveisResponse response = service.atualizarHorarioDisponivel(id, request);
@@ -56,8 +56,8 @@ public class HorariosDisponiveisController {
 
     }
 
-    @GetMapping("/horario-professor")
-    public ResponseEntity<List<HorariosDisponiveisResponse>> buscarTodosHorariosDisponiveisDoProfessor(@Param("idProfessor") Long idProfessor) {
+    @GetMapping("/horario-professor/{idProfessor}")
+    public ResponseEntity<List<HorariosDisponiveisResponse>> buscarTodosHorariosDisponiveisDoProfessor(@PathVariable Long idProfessor) {
 
         List<HorariosDisponiveisResponse> list = service.buscarTodosHorariosDisponiveisDoProfessor(idProfessor);
 
