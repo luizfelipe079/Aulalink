@@ -2,6 +2,7 @@ package com.desafioFinal.DesafioFinal.services;
 
 import com.desafioFinal.DesafioFinal.dtos.MarcacaoRequest;
 import com.desafioFinal.DesafioFinal.dtos.MarcacaoResponse;
+import com.desafioFinal.DesafioFinal.dtos.MarcacaoVinculaProfEAluRequest;
 import com.desafioFinal.DesafioFinal.exceptions.ResourceNotFoundException;
 import com.desafioFinal.DesafioFinal.models.Aluno;
 import com.desafioFinal.DesafioFinal.models.Marcacao;
@@ -43,11 +44,11 @@ public class MarcacaoService {
 
     }
 
-    public MarcacaoResponse vincularMarcacaoAoProfessorEAluno(Long id_marcacao, Long id_professor, Long id_aluno) {
+    public MarcacaoResponse vincularMarcacaoAoProfessorEAluno(MarcacaoVinculaProfEAluRequest request) {
 
-        Professor prof = professorRepository.findById(id_professor).orElseThrow(() -> idNotFound(id_professor));
-        Marcacao marca = marcacaoRepository.findById(id_marcacao).orElseThrow(() -> idNotFound(id_marcacao));
-        Aluno aluno = alunoRepository.findById(id_aluno).orElseThrow(() -> idNotFound(id_aluno));
+        Marcacao marca = marcacaoRepository.findById(request.getId_marcacao()).orElseThrow(() -> idNotFound(request.getId_marcacao()));
+        Professor prof = professorRepository.findById(request.getId_professor()).orElseThrow(() -> idNotFound(request.getId_professor()));
+        Aluno aluno = alunoRepository.findById(request.getId_aluno()).orElseThrow(() -> idNotFound(request.getId_aluno()));
 
         marca.setProfessor(prof);
         marca.setAluno(aluno);
