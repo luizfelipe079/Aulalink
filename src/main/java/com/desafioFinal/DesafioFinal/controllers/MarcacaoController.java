@@ -2,9 +2,11 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.MarcacaoRequest;
 import com.desafioFinal.DesafioFinal.dtos.MarcacaoResponse;
+import com.desafioFinal.DesafioFinal.dtos.MarcacaoVinculaProfEAluRequest;
 import com.desafioFinal.DesafioFinal.services.MarcacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +37,9 @@ public class MarcacaoController {
     }
 
     @PostMapping("/vincular")
-    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessorEAluno(Long id_marcacao, Long id_professor, Long id_aluno) {
+    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessorEAluno(@RequestBody MarcacaoVinculaProfEAluRequest request) {
 
-        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessorEAluno(id_marcacao, id_professor, id_aluno);
+        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessorEAluno(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
