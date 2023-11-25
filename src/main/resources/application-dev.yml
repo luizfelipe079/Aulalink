@@ -11,6 +11,12 @@ spring:
       ddl-auto: update
     show-sql: true
 
+google:
+  credentials:
+    file: credentials.json
+  redirectURI: http://localhost:3000
+  responseType: code
+
 token:
   expirationms: 3600000
   secret:
