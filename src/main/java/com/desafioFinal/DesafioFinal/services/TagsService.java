@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.services;
 
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagVinculaRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
@@ -69,9 +70,9 @@ public class TagsService {
         return list;
     }
 
-    public void excluirTag(Long id) {
+    public void excluirTag(IdRequest request) {
 
-        Tags tag = tagsRepository.findById(id).orElseThrow(() -> idNotFound(id));
+        Tags tag = tagsRepository.findById(request.getId()).orElseThrow(() -> idNotFound(request.getId()));
         tagsRepository.delete(tag);
 
     }

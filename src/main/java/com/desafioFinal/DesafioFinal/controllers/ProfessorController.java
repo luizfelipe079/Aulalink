@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.controllers;
 
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorResponse;
 import com.desafioFinal.DesafioFinal.services.ProfessorService;
@@ -28,16 +29,16 @@ public class ProfessorController {
     }
 
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<ProfessorResponse> atualizarProfessor(@PathVariable Long id, @RequestBody ProfessorRequest request) {
+    @PutMapping
+    public ResponseEntity<ProfessorResponse> atualizarProfessor(@RequestParam Long id, @RequestBody ProfessorRequest request) {
 
         ProfessorResponse response = professorService.atualizarProfessor(id, request);
         return ResponseEntity.ok().body(response);
 
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<ProfessorResponse> buscarProfessorPorId(@PathVariable Long id) {
+    @GetMapping("professor-id")
+    public ResponseEntity<ProfessorResponse> buscarProfessorPorId(@RequestParam  Long id) {
 
         ProfessorResponse response = professorService.buscarProfessorPorId(id);
         return ResponseEntity.ok().body(response);
@@ -62,8 +63,8 @@ public class ProfessorController {
 //
 //    }
 
-    @GetMapping(path = "/portags/{tag}")
-    public ResponseEntity<List<ProfessorResponse>> listarTodosProfessoresPorTags(@PathVariable String tag) {
+    @GetMapping("/prof-por-tags")
+    public ResponseEntity<List<ProfessorResponse>> listarTodosProfessoresPorTags(@RequestParam String tag) {
 
         List<ProfessorResponse> list = professorService.listarTodosProfessoresPorTags(tag);
 
@@ -71,8 +72,8 @@ public class ProfessorController {
 
     }
 
-    @GetMapping(path = "/proftags/{professor}")
-    public ResponseEntity<ProfessorResponse> listarTodasTagsDoProfessor(@PathVariable String professor) {
+    @GetMapping("/tags-do-professor")
+    public ResponseEntity<ProfessorResponse> listarTodasTagsDoProfessor(@RequestParam  String professor) {
 
         ProfessorResponse response = professorService.listarTodasTagsDoProfessor(professor);
 
@@ -80,11 +81,11 @@ public class ProfessorController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirTagPorId(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<?> excluirTagPorId(@RequestBody IdRequest request) {
 
-        professorService.excluirProfessor(id);
-        return ResponseEntity.noContent().build();
+        professorService.excluirProfessor(request);
+        return ResponseEntity.ok().build();
 
     }
 
@@ -94,7 +95,7 @@ public class ProfessorController {
 //        return "form";
 //    }
 //
-//    @PostMapping("/upload")
+//    @PostMapping("/upload" , produces = MediaType.IMAGE_PNG_VALUE)
 //    public String handleFileUpload(@ModelAttribute ProfessorRequest professor, @RequestParam("file") MultipartFile file) {
 //        try {
 //            professor.setImagem(file.getBytes());

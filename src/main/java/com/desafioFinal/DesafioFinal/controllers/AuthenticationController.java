@@ -4,7 +4,6 @@ import com.desafioFinal.DesafioFinal.dtos.*;
 import com.desafioFinal.DesafioFinal.services.AuthenticationService;
 import com.desafioFinal.DesafioFinal.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +35,8 @@ public class AuthenticationController {
         return authenticationService.signupProfessor(request);
     }
 
-    @GetMapping(path = "/{email}")
-    public ResponseEntity<UsuarioResponse> buscarUsuarioPorEmail(@PathVariable String email) {
+    @GetMapping("/email")
+    public ResponseEntity<UsuarioResponse> buscarUsuarioPorEmail(@RequestParam String email) {
         UsuarioResponse user = usuarioService.buscarUsuarioPorEmail(email);
         return ResponseEntity.ok().body(user);
     }

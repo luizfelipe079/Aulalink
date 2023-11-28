@@ -2,6 +2,7 @@ package com.desafioFinal.DesafioFinal.controllers;
 
 import com.desafioFinal.DesafioFinal.dtos.AlunoRequest;
 import com.desafioFinal.DesafioFinal.dtos.AlunoResponse;
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.services.AlunoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,16 @@ public class AlunoController {
     }
 
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<AlunoResponse> atualizarAluno(@PathVariable Long id, @RequestBody AlunoRequest request) {
+    @PutMapping
+    public ResponseEntity<AlunoResponse> atualizarAluno(@RequestParam Long id, @RequestBody AlunoRequest request) {
 
         AlunoResponse response = alunoService.atualizarAluno(id, request);
         return ResponseEntity.ok().body(response);
 
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<AlunoResponse> buscarAlunoPorId(@PathVariable Long id) {
+    @GetMapping("aluno-id")
+    public ResponseEntity<AlunoResponse> buscarAlunoPorId(@RequestParam  Long id) {
 
         AlunoResponse response = alunoService.buscarAlunoPorId(id);
         return ResponseEntity.ok().body(response);
@@ -53,11 +54,11 @@ public class AlunoController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirTagPorId(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<?> excluirTagPorId(@RequestBody IdRequest request) {
 
-        alunoService.excluirAluno(id);
-        return ResponseEntity.noContent().build();
+        alunoService.excluirAluno(request);
+        return ResponseEntity.ok().build();
 
     }
 

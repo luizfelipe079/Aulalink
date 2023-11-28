@@ -2,6 +2,7 @@ package com.desafioFinal.DesafioFinal.services;
 
 import com.desafioFinal.DesafioFinal.dtos.AlunoRequest;
 import com.desafioFinal.DesafioFinal.dtos.AlunoResponse;
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.exceptions.ResourceNotFoundException;
 import com.desafioFinal.DesafioFinal.models.Aluno;
 import com.desafioFinal.DesafioFinal.repositories.AlunoRepository;
@@ -58,9 +59,9 @@ public class AlunoService {
         return list;
     }
 
-    public void excluirAluno(Long id) {
+    public void excluirAluno(IdRequest request) {
 
-        Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> idNotFound(id));
+        Aluno aluno = alunoRepository.findById(request.getId()).orElseThrow(() -> idNotFound(request.getId()));
         alunoRepository.delete(aluno);
 
     }

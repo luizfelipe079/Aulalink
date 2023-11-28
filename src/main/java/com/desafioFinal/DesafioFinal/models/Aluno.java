@@ -16,7 +16,7 @@ public class Aluno extends Usuario {
 
     private String educacao;
     @OneToMany(mappedBy = "aluno")
-    @JsonIgnore(value = true)
+    @JsonIgnore
     private List<Marcacao> marcacao;
 
 }

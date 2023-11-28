@@ -1,5 +1,6 @@
 package com.desafioFinal.DesafioFinal.services;
 
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorRequest;
 import com.desafioFinal.DesafioFinal.dtos.ProfessorResponse;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
@@ -114,9 +115,9 @@ public class ProfessorService {
 //    }
 
 
-    public void excluirProfessor(Long id) {
+    public void excluirProfessor(IdRequest request) {
 
-        Professor professor = professorRepository.findById(id).orElseThrow(() -> idNotFound(id));
+        Professor professor = professorRepository.findById(request.getId()).orElseThrow(() -> idNotFound(request.getId()));
         professorRepository.delete(professor);
 
     }

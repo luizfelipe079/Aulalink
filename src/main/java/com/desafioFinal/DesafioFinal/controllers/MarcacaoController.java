@@ -1,12 +1,9 @@
 package com.desafioFinal.DesafioFinal.controllers;
 
-import com.desafioFinal.DesafioFinal.dtos.MarcacaoRequest;
-import com.desafioFinal.DesafioFinal.dtos.MarcacaoResponse;
-import com.desafioFinal.DesafioFinal.dtos.MarcacaoVinculaProfEAluRequest;
+import com.desafioFinal.DesafioFinal.dtos.*;
 import com.desafioFinal.DesafioFinal.services.MarcacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,23 +25,38 @@ public class MarcacaoController {
 
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<MarcacaoResponse> atualizarMarcacao(@PathVariable Long id, @RequestBody MarcacaoRequest request) {
+    @PutMapping
+    public ResponseEntity<MarcacaoResponse> atualizarMarcacao(@RequestParam Long id_marcacao, @RequestBody MarcacaoRequest request) {
 
-        MarcacaoResponse response = marcacaoService.atualizarMarcacao(id, request);
+        MarcacaoResponse response = marcacaoService.atualizarMarcacao(id_marcacao, request);
         return ResponseEntity.ok().body(response);
 
     }
 
-    @PostMapping("/vincular")
-    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessorEAluno(@RequestBody MarcacaoVinculaProfEAluRequest request) {
+    @PutMapping("/vincula-prof")
+    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoProfessor(@RequestBody MarcacaoVinculaProfessorRequest request) {
 
-        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessorEAluno(request);
+        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoProfessor(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+    @PutMapping("/vincula-aluno")
+    public ResponseEntity<MarcacaoResponse> vincularMarcacaoAoAluno(@RequestBody MarcacaoVinculaAlunoRequest request) {
+
+        MarcacaoResponse response = marcacaoService.vincularMarcacaoAoAluno(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<MarcacaoResponse> buscarMarcacaoPorId(@PathVariable Long id) {
+    @PostMapping("/multiplas-marcacoes")
+    public ResponseEntity<List<MarcacaoResponse>> criarMultiplasMarcacoesDisponiveis(@RequestBody ListMarcacoesDisponiveisRequest request){
+
+        List<MarcacaoResponse> list = marcacaoService.criarMultiplasMarcacoesDisponiveis(request);
+
+        return ResponseEntity.ok().body(list);
+
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<MarcacaoResponse> buscarMarcacaoPorId(@RequestParam  Long id) {
 
         MarcacaoResponse response = marcacaoService.buscarMarcacaoPorId(id);
         return ResponseEntity.ok().body(response);
@@ -60,8 +72,8 @@ public class MarcacaoController {
 
     }
 
-    @GetMapping("/professor/{id_professor}")
-    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorProfessor(@PathVariable Long id_professor) {
+    @GetMapping("/professor-id")
+    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorProfessor(@RequestParam  Long id_professor) {
 
         List<MarcacaoResponse> list = marcacaoService.listarTodasMarcacoesPorProfessor(id_professor);
 
@@ -69,8 +81,8 @@ public class MarcacaoController {
 
     }
 
-    @GetMapping("/aluno/{id_aluno}")
-    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorAluno(@PathVariable Long id_aluno) {
+    @GetMapping("/aluno-id")
+    public ResponseEntity<List<MarcacaoResponse>> listarTodasMarcacoesPorAluno(@RequestParam  Long id_aluno) {
 
         List<MarcacaoResponse> list = marcacaoService.listarTodasMarcacoesPorAluno(id_aluno);
 
@@ -78,11 +90,11 @@ public class MarcacaoController {
 
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> excluirMarcacaoPorId(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<?> excluirMarcacaoPorId(@RequestBody IdRequest request) {
 
-        marcacaoService.excluirMarcacao(id);
-        return ResponseEntity.noContent().build();
+        marcacaoService.excluirMarcacao(request);
+        return ResponseEntity.ok().build();
 
     }
 

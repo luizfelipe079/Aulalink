@@ -15,5 +15,6 @@ public class MarcacaoRequest {
     private String descricao;
     private Date dataInicio;
     private Date dataTermino;
+    private boolean horarioPreenchido;
 
 }

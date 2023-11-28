@@ -94,9 +94,9 @@ public class HorariosDisponiveisService {
         return list;
     }
 
-    public void excluirHorarioDisponivel(Long id) {
+    public void excluirHorarioDisponivel(IdRequest request) {
 
-        HorariosDisponiveis horarioDisponivel = repository.findById(id).orElseThrow(() -> idNotFound(id));
+        HorariosDisponiveis horarioDisponivel = repository.findById(request.getId()).orElseThrow(() -> idNotFound(request.getId()));
 
         repository.delete(horarioDisponivel);
 

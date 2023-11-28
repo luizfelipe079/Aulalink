@@ -1,5 +1,12 @@
 server:
   port: 8080
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: password
+#    key-store-type: PKCS12
+#    key-alias: tomcat
+#  redirect-http: true
+
 
 spring:
   datasource:
@@ -15,3 +22,4 @@ token:
   expirationms: 3600000
   secret:
     key: 48a868a4042f634ac04a117f00a87202131dd7c46c4b32c4acb3edc5e15f4511
+

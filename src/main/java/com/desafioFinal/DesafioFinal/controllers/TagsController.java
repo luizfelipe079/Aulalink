@@ -1,14 +1,15 @@
 package com.desafioFinal.DesafioFinal.controllers;
 
+import com.desafioFinal.DesafioFinal.dtos.IdRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagVinculaRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsRequest;
 import com.desafioFinal.DesafioFinal.dtos.TagsResponse;
 import com.desafioFinal.DesafioFinal.services.TagsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/tags")
+@Tag(name = "Tags COntroller", description = "API com todas as funções da Tag")
 public class TagsController {
 
     @Autowired
@@ -37,16 +39,16 @@ public class TagsController {
 
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<TagsResponse> atualizarTag(@PathVariable Long id, @RequestBody TagsRequest request) {
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TagsResponse> atualizarTag(@RequestParam Long id, @RequestBody TagsRequest request) {
 
         TagsResponse response = tagsService.atualizarTag(id, request);
         return ResponseEntity.ok().body(response);
 
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<TagsResponse> buscarTagPorId(@PathVariable Long id) {
+    @GetMapping("tag-id")
+    public ResponseEntity<TagsResponse> buscarTagPorId(@RequestParam  Long id) {
 
         TagsResponse response = tagsService.buscarTagPorId(id);
         return ResponseEntity.ok().body(response);
@@ -54,7 +56,6 @@ public class TagsController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasRole('ROLE_PROFESSOR)")
     public ResponseEntity<List<TagsResponse>> listarTodasTags() {
 
         List<TagsResponse> list = tagsService.listarTodasTags();
@@ -63,11 +64,11 @@ public class TagsController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirTagPorId(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<?> excluirTagPorId(@RequestBody IdRequest request) {
 
-        tagsService.excluirTag(id);
-        return ResponseEntity.noContent().build();
+        tagsService.excluirTag(request);
+        return ResponseEntity.ok().build();
 
     }
 

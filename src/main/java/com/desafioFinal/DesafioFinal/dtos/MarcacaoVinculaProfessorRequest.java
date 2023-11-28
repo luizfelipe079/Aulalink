@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MarcacaoVinculaProfEAluRequest {
+public class MarcacaoVinculaProfessorRequest {
 
     private Long id_marcacao;
     private Long id_professor;
-    private Long id_aluno;
 
 }
